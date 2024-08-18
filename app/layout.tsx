@@ -6,6 +6,7 @@ import { Navbar } from "./components/Navbar";
 import prisma from '../lib/db'
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 const inter = Inter({ subsets: ["latin"] });
+import { unstable_noStore as noStore } from "next/cache";
 
 export const metadata: Metadata = {
   title: "SaaS Application",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 async function getData(userId: string) {
+  noStore();
   if (userId) {
     const data = await prisma.user.findUnique({
       where: {
